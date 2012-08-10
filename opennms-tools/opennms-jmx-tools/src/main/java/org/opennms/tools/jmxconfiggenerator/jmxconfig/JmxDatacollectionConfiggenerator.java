@@ -192,27 +192,21 @@ public class JmxDatacollectionConfiggenerator {
         return xmlJmxDatacollectionConfig;
     }
 
-    public MBeanServerConnection createMBeanServerConnection(String hostName, String port, String username, String password, Boolean ssl, Boolean jmxmp) throws MalformedURLException, IOException {
-        JMXConnector jmxConnector;
-        JMXServiceURL jmxServiceURL;
-        MBeanServerConnection jmxServerConnection = null;
-
-//        try {
-			jmxServiceURL = getJmxServiceURL(jmxmp, hostName, port);
-			jmxConnector = getJmxConnector(username, password, jmxServiceURL);
-            logger.debug("jmxServerConnection: '{}'", jmxServerConnection);
-            jmxServerConnection = jmxConnector.getMBeanServerConnection();
-            logger.debug("count: " + jmxServerConnection.getMBeanCount());
-//        } catch (MalformedURLException e) {
-//            logger.error("MalformedURLException '{}'", e.getMessage());
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            logger.error("IOException '{}'", e.getMessage());
-//            e.printStackTrace();
-//        }
-
-        return jmxServerConnection;
-    }
+	public MBeanServerConnection createMBeanServerConnection(String hostName, String port, String username, String password, Boolean ssl, Boolean jmxmp) throws MalformedURLException, IOException {
+		JMXConnector jmxConnector = getJmxConnector(hostName, port, username, password, ssl, jmxmp);
+		MBeanServerConnection jmxServerConnection = jmxConnector.getMBeanServerConnection();
+		logger.debug("jmxServerConnection: '{}'", jmxServerConnection);
+		logger.debug("count: " + jmxServerConnection.getMBeanCount());
+		return jmxServerConnection;
+		//TODO tak fragen, wie es aussieht mit dem Schließen der Connection -> erledigt sich wahrscheinlich, da CLI
+	}
+	
+	//TODO
+	public JMXConnector getJmxConnector(String hostName, String port, String username, String password, Boolean ssl, Boolean jmxmp) throws MalformedURLException, IOException {
+        JMXServiceURL jmxServiceURL = getJmxServiceURL(jmxmp, hostName, port);
+		JMXConnector jmxConnector = getJmxConnector(username, password, jmxServiceURL);
+		return jmxConnector;
+	}
 
 	/**
 	 * This method gets the JmxConnector to connect with the given jmxServiceURL.

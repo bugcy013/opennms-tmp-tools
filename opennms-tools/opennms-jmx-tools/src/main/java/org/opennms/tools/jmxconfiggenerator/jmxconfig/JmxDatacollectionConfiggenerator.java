@@ -163,7 +163,7 @@ public class JmxDatacollectionConfiggenerator {
 
                                     if (numbers.contains(jmxBeanAttributeInfo.getType())) {
                                         Attrib xmlJmxAttribute = createAttr(jmxBeanAttributeInfo);
-                                        logger.info("Added MBean: '{}' Added attribute: '{}'", xmlMbean.getObjectname(), xmlJmxAttribute.getName() + " as " + xmlJmxAttribute.getAlias());
+                                        logger.debug("Added MBean: '{}' Added attribute: '{}'", xmlMbean.getObjectname(), xmlJmxAttribute.getName() + " as " + xmlJmxAttribute.getAlias());
                                         xmlMbean.getAttrib().add(xmlJmxAttribute);
                                     }
                                 }
